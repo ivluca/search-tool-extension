@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tab</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="center-content">
+    <div id="time-widget" class="time-widget"></div>
+    <div id="greeting-widget" class="greeting-widget"></div>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search Google" autocomplete="off">
+    </div>
+    <div id="quick-links-container" class="quick-links-grid">
+      <!-- Quick links will be rendered by JavaScript -->
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span id="settings-button">Settings</span>
+  </footer>
+
+  <!-- Template for a single quick link icon -->
+  <template id="quick-link-template">
+    <a class="quick-link-item" target="_blank" rel="noopener noreferrer">
+      <img class="quick-link-icon" src="" alt="">
+    </a>
+  </template>
+
+  <script src="newtab.js" defer></script>
+</body>
+</html>
