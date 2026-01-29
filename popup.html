@@ -5,25 +5,30 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <input type="text" id="searchInput" placeholder="Search...">
-  <ul id="searchOptions">
-    <li class="search-option" data-engine="duckduckgo" title="Select with key '1'">
-      <img src="images/duckduckgo-icon.png" alt="DuckDuckGo">
-      <span>DuckDuckGo</span>
-    </li>
-    <li class="search-option" data-engine="google" title="Select with key '2'">
-      <img src="images/google-chrome-icon.png" alt="Google">
-      <span>Google</span>
-    </li>
-    <li class="search-option" data-engine="bing" title="Select with key '3'">
-      <img src="images/bing-color-icon.png" alt="Bing">
-      <span>Bing</span>
-    </li>
-    <li class="search-option" data-engine="yandex" title="Select with key '4'">
-      <img src="images/yandex-icon.png" alt="Yandex">
-      <span>Yandex</span>
-    </li>
-  </ul>
+  <header class="header">
+    <h1 class="header-title">Search Tool</h1>
+  </header>
+  <main>
+    <input type="text" id="searchInput">
+    <ul id="searchOptions">
+      <li class="search-option" data-engine="duckduckgo" title="Select with key '1'">
+        <img src="images/duckduckgo-icon.png" alt="DuckDuckGo">
+        <span>DuckDuckGo</span>
+      </li>
+      <li class="search-option" data-engine="google" title="Select with key '2'">
+        <img src="images/google-chrome-icon.png" alt="Google">
+        <span>Google</span>
+      </li>
+      <li class="search-option" data-engine="bing" title="Select with key '3'">
+        <img src="images/bing-color-icon.png" alt="Bing">
+        <span>Bing</span>
+      </li>
+      <li class="search-option" data-engine="yandex" title="Select with key '4'">
+        <img src="images/yandex-icon.png" alt="Yandex">
+        <span>Yandex</span>
+      </li>
+    </ul>
+  </main>
   <script src="popup.js"></script>
 </body>
 </html>

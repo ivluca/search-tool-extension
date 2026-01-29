@@ -10,13 +10,22 @@ document.addEventListener('DOMContentLoaded', function() {
     '4': 'yandex'
   };
 
+  const engineNames = {
+    'duckduckgo': 'DuckDuckGo',
+    'google': 'Google',
+    'bing': 'Bing',
+    'yandex': 'Yandex'
+  };
+
   searchInput.focus();
 
   // Function to update selection
   function updateSelection(engine) {
     selectedEngine = engine;
     searchOptions.forEach(opt => opt.classList.remove('selected'));
-    document.querySelector(`.search-option[data-engine="${engine}"]`).classList.add('selected');
+    const selectedOption = document.querySelector(`.search-option[data-engine="${engine}"]`);
+    selectedOption.classList.add('selected');
+    searchInput.placeholder = `${engineNames[engine]}...`;
   }
 
   // Set default selection
