@@ -1,72 +1,57 @@
 document.addEventListener('DOMContentLoaded', function() {
   const searchInput = document.getElementById('searchInput');
-  const searchOptions = document.querySelectorAll('.search-option');
+  const searchOptionsContainer = document.getElementById('searchOptions');
   let selectedEngine = 'duckduckgo'; // Default search engine
 
-  const engineMapping = {
-    '1': 'duckduckgo',
-    '2': 'google',
-    '3': 'bing',
-    '4': 'yandex'
-  };
-
-  const engineNames = {
-    'duckduckgo': 'DuckDuckGo',
-    'google': 'Google',
-    'bing': 'Bing',
-    'yandex': 'Yandex'
+  const engineConfig = {
+    'duckduckgo': { name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=' },
+    'google': { name: 'Google', url: 'https://www.google.com/search?q=' },
+    'bing': { name: 'Bing', url: 'https://www.bing.com/search?q=' },
+    'yandex': { name: 'Yandex', url: 'https://yandex.com/search/?text=' }
   };
 
   searchInput.focus();
 
-  // Function to update selection
+  // Function to update selection and placeholder
   function updateSelection(engine) {
     selectedEngine = engine;
-    searchOptions.forEach(opt => opt.classList.remove('selected'));
-    const selectedOption = document.querySelector(`.search-option[data-engine="${engine}"]`);
-    selectedOption.classList.add('selected');
-    searchInput.placeholder = `${engineNames[engine]}...`;
+    
+    // Remove 'selected' class from all options
+    searchOptionsContainer.querySelectorAll('.search-option').forEach(opt => opt.classList.remove('selected'));
+    
+    // Add 'selected' class to the correct option
+    const selectedOption = searchOptionsContainer.querySelector(`[data-engine="${engine}"]`);
+    if (selectedOption) {
+      selectedOption.classList.add('selected');
+    }
+    
+    searchInput.placeholder = `${engineConfig[engine].name}...`;
   }
 
   // Set default selection
   updateSelection(selectedEngine);
 
-  searchOptions.forEach(option => {
-    option.addEventListener('click', function() {
-      updateSelection(this.dataset.engine);
-    });
+  // Use event delegation for search option clicks
+  searchOptionsContainer.addEventListener('click', function(event) {
+    const targetOption = event.target.closest('.search-option');
+    if (targetOption && targetOption.dataset.engine) {
+      updateSelection(targetOption.dataset.engine);
+    }
   });
 
   searchInput.addEventListener('keydown', function(event) {
-    // Handle number keys for engine selection
-    if (event.key >= '1' && event.key <= '4') {
-      event.preventDefault();
-      const engine = engineMapping[event.key];
-      if (engine) {
-        updateSelection(engine);
-      }
-    } else if (event.key === 'Enter') {
-      const query = searchInput.value;
-      if (query.trim() === '') {
-        return; // Don't search for empty query
-      }
-      let searchUrl;
-
-      switch (selectedEngine) {
-        case 'google':
-          searchUrl = `https://www.google.com/search?q=${query}`;
-          break;
-        case 'bing':
-          searchUrl = `https://www.bing.com/search?q=${query}`;
-          break;
-        case 'yandex':
-          searchUrl = `https://yandex.com/search/?text=${query}`;
-          break;
-        default:
-          searchUrl = `https://duckduckgo.com/?q=${query}`;
-      }
-
-      chrome.tabs.create({ url: searchUrl });
+    if (event.key === 'Enter') {
+      performSearch();
     }
   });
+
+  function performSearch() {
+    const query = searchInput.value.trim();
+    if (query === '') {
+      return; // Don't search for an empty query
+    }
+    
+    const searchUrl = engineConfig[selectedEngine].url + encodeURIComponent(query);
+    chrome.tabs.create({ url: searchUrl });
+  }
 });
