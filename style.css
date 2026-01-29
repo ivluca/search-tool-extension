@@ -10,8 +10,22 @@ body {
   font-family: 'SNPro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   width: 300px;
   margin: 0;
-  background-color: #fafafa;
+  background-image: url('images/background.png');
+  background-size: cover;
+  background-position: center;
   color: #333;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.85); /* White overlay */
+  z-index: -1;
 }
 
 main {
@@ -41,18 +55,22 @@ main {
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  justify-content: center; /* Center the icons */
+  gap: 10px; /* Reduced space between icons */
 }
 
 .search-option {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
-  border-radius: 8px;
+  justify-content: center;
+  width: 32px; /* Smaller square size */
+  height: 32px; /* Smaller square size */
+  padding: 5px;
+  border-radius: 6px; /* Slightly smaller border radius */
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
   border: 1px solid transparent;
+  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent background */
 }
 
 .search-option:hover {
@@ -64,17 +82,8 @@ main {
   border-color: #c6d9f9;
 }
 
-.search-option.selected:hover {
-  background-color: #d4e2f7;
-}
-
 .search-option img {
-  width: 20px;
-  height: 20px;
-  margin-right: 12px;
-}
-
-.search-option span {
-  font-size: 14px;
-  color: #222;
+  width: 20px; /* Smaller icon size */
+  height: 20px; /* Smaller icon size */
+  margin: 0; /* Remove margin */
 }
